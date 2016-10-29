@@ -1,0 +1,177 @@
+\documentclass[11pt,addpoints]{exam}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\usepackage{graphicx}
+\usepackage[usenames,dvipsnames]{color}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} % load a font with all the characters
+
+
+% Bold the 'Figure #' in the caption and separate it with a period
+% Captions will be left justified
+\usepackage[labelfont=bf,labelsep=period,justification=raggedright]{caption}
+\usepackage{here}
+
+\title{Examen Cours ES2: Introduction à la bioinformatique et la génomique}
+\author{Chloé-Agathe Azencott, Thomas Walter}
+\begin{document}
+\maketitle 
+
+\begin{questions}
+
+\section{Questions sur le cours}
+
+\question[4] Notions en Biologie. 
+\begin{parts}
+\part Citer trois fonctions de protéines. 
+\part Expliquer pourquoi un codon est constitué de trois nucléotides. 
+\part Expliquer le principe de l'ARN interférence.
+\part Classer les mutations selon leur effet. 
+\end{parts}
+
+---- THE REST HAS NOT BEEN TOUCHED. 
+
+\question[2] La microscopie.
+\begin{parts}
+\part Décrire une technique pour mettre en évidence des structures
+dans la cellule. 
+\part Quelle est le principe de la microscopie par feuille de lumière
+et quel est son principal avantage~? 
+\part Quel est le principe et l'objectif de la microscopie par
+illumination structurée~?  
+\end{parts}
+
+\question[2] Vous êtes consulté comme un expert en analyse d'image par
+un biologiste qui veut reconnaître les morphologies montrées dans la
+figure \ref{fig:morphologies}. Proposez des descripteurs qui seront
+capables de distinguer les
+morphologies d'en haut de celles d'en bas pour les colonnes (a), (b),
+(c). 
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.5]{morphologies_raw.png}
+\caption{Classes morphologiques à distinguer}
+\label{fig:morphologies}
+\end{figure}
+
+\question[2] Clustering. La figure \ref{fig:micro_array} montre le
+résultat d'un clustering d'expression des gènes de plusieurs échantillons de
+cancer du sein. Chaque ligne correspond à un gène, chaque colonne
+correspond à un échantillon.  
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.8]{microarray.pdf}
+\caption{Microarray (extrait) : chaque ligne correspond à un gène,
+  chaque colonne à un échantillon. La couleur encode le niveau
+  d'expression des gènes.}
+\label{fig:micro_array}
+\end{figure}
+
+\begin{parts}
+\part Pour obtenir une telle représentation, on peut utiliser divers
+algorithmes. Comment peut-on décider lequel est le plus approprié~? 
+\part Tous les échantillons proviennent du cancer du sein, mais
+visiblement, ils ne partagent pas le même profil d'expression. Que
+peut-on en déduire sur le cancer du sein en tant que maladie~? Quelles
+sont les implications pour le traitement~? 
+\end{parts}
+
+\question[2] Apprentissage statistique.
+Les machines à vecteurs de support pour des jeux de données
+peuvent s'écrire comme un problème d'optimisation : 
+\begin{eqnarray*}\label{equ:svm}
+\mbox{minimize}_{w,\xi} & & \|w\|^2 + C \sum_{i=1}^{N}\xi_i\\
+\mbox{subject to} & & y_i(w^Tx_i + b) \geq 1 - \xi_i \quad i = 1, \ldots, N \\
+& & \xi_i \geq 0 \quad i = 1, \ldots, N
+\end{eqnarray*}
+où $w$ est le vecteur normal de l'hyperplan séparateur, $x_i \in
+\mathbb{R}^p$ les vecteurs des descripteurs, $y_i \in \{-1, +1\}$ les
+étiquettes. 
+
+\begin{parts}
+\part Qu'est-ce que cela veut dire si vous trouvez que pour un descripteur $j$, la valeur
+correspondante du vecteur normal $w_j$ a une valeur absolue proche de
+0~? 
+\part Donner une interprétation des deux termes de la fonction objective ($\|w\|^2$
+and $\sum_{i=1}^{N}\xi_i$) et expliquer le rôle du paramètre $C$. 
+\part Décrire une façon de fixer le paramètre $C$. 
+\end{parts}
+
+\question[2] Innovation th\'erapeutique. La table~\ref{tab:chemoinformatics} pr\'esente les performances en terme de pr\'ecision (``accuracy'', soit la proportion d'examples correctement classifi\'es) de trois algorithmes de classification appliqu\'es \`a trois jeux de donn\'ees QSAR. [Source : V. Svetnik et al. Random forest: a classification and regression tool for compound classification and QSAR modeling. {\it J Chem Info Comp Sci} (2003).]
+ 
+\begin{table}
+  \centering
+  \begin{tabular}{|l|r|r|r|} \hline
+    Data & RF & DT & PLS \\ \hline
+    BBB & $0.800$ & $0.732$ & $0.678$ \\
+    Estrogen & $0.818$ & $0.753$ & $0.805$ \\
+    COX-2 & $0.783$ & $0.742$ & $0.783$ \\ \hline
+  \end{tabular}
+  \caption{Pr\'ecision (accuracy) de trois m\'ethodes : for\^ets al\'eatoires (Random Forests, RF) ; arbres de d\'ecision (Decision Trees, DT) ; r\'egression des moindres carr\'es partiels (Partial Least Squares, PSL), sur trois jeux de donn\'ees : BBB (Brain-Blood Barrier, capacit\'e \`a traverser la barri\`ere h\'emato-enc\'ephalique) ; Estrogen (capacit\'e \`a se lier \`a un r\'ecepteur \`a estrog\`ene) ; COX-2 (capacit\'e \`a inhiber la cyclooxyg\'enase-2). La pr\'ecision est d\'etermin\'ee par leave-one-out.}
+  \label{tab:chemoinformatics}
+\end{table}
+
+\begin{parts}
+\part D'apr\`es ces donn\'ees, lequel des trois algorithmes est le plus appropri\'e pour conduire des \'etudes des QSAR~?
+\part Quel est l'int\'er\^et pour le d\'eveloppement th\'erapeutique de d\'evelopper des m\'ethodes capables de pr\'edire correctement la capacit\'e d'une mol\'ecule \`a traverser la barri\`ere h\'emato-enc\'ephalique~? Sa capacit\'e \`a inhiber une enzyme telle que la cycolooxyg\'enase-2~?
+\part Les proportions d'examples positifs vs. n\'egatifs dans les trois jeux de donn\'ees sont $180/145$, $131/101$ et $153/161$. Quel impact cela a-t-il sur la pertinence de l'utilisation de la pr\'ecision comme crit\`ere d'\'evaluation des algorithmes~?
+\end{parts}
+
+
+\section{Questions sur le papier ``Quantitative image analysis of
+  cellular heterogeneity in breast tumors complements genomic profiling.''}
+
+\question[2] DNA copy number profiling. Il existe des techniques
+permettant de déterminer à partir d'un échantillon de cellules  le
+nombre de copies d'un fragment d'ADN dans le génome de la cellule
+étudiée. Cela permet entre autres d'identifier des duplications de
+gènes. 
+\begin{parts}
+\part Quel est le problème de cette technique, quand on étudie un
+échantillon provenant d'une tumeur~? 
+\part Quelle est la stratégie proposée dans l'article pour corriger ce
+problème~? 
+\end{parts}
+
+\question[4] Figure 5.A.   
+\begin{parts}
+\part Que décrivent les courbes de Kaplan-Meier telles que celles
+présentées dans la Figure 5.A~? 
+\part Comment les auteurs définissent-ils ``LI''~? 
+\part Comment ont-ils séparé les tumeurs en ``LI low'' et ``LI high''
+? 
+\part Comment cette séparation se compare-t-elle à celle effectuée par
+les médecins~? 
+\end{parts}
+
+\question[3] Figure 5.B
+\begin{parts}
+\part Que représentent les couleurs sur la figure 5.B~? 
+\part Quelle propriété un classifieur capable de séparer les
+survivants des décédés doit-il avoir~?
+\end{parts}
+
+\question[2] Figure 5.C. Dans la colonne de droite, on a utilisé le
+classifieur de la figure 5.B pour séparer les tumeurs en deux groupes.  
+\begin{parts}
+\part Comment cette séparation se compare-t-elle à celle effectuée
+uniquement sur la base des images ou encore celle effectuée uniquement
+sur la base de signature d'expression des gènes~? 
+\part Pourquoi les images peuvent-elles apporter une information
+complémentaire à celle apportée par la mesure de l'expression des
+gènes~?
+\end{parts}
+
+\question[1] Quels sont les descripteurs issus de l'anayse d'images que
+les auteurs utilisent pour prédire la survie des patients~? 
+
+\end{questions}
+
+%\begin{enumerate}
+%\item 
+%\end{enumerate}
+\end{document}
