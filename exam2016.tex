@@ -1,7 +1,9 @@
 \documentclass[11pt,addpoints]{exam}
+\printanswers
 
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{bm}
 
 \usepackage{graphicx}
 \usepackage[usenames,dvipsnames]{color}
@@ -29,7 +31,7 @@
 \begin{parts}
 \part Citer trois fonctions de protéines. 
 \part Expliquer pourquoi un codon est constitué de trois nucléotides. 
-\part Expliquer le principe de l'ARN interférence.
+\part Expliquer le principe de l'interférence par ARN.
 \part Classer les mutations selon leur effet. 
 \end{parts}
 
@@ -53,7 +55,7 @@ morphologies d'en haut de celles d'en bas pour les colonnes (a), (b),
 (c). 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.5]{morphologies_raw.png}
+%\includegraphics[scale=0.5]{morphologies_raw.png}
 \caption{Classes morphologiques à distinguer}
 \label{fig:morphologies}
 \end{figure}
@@ -64,7 +66,7 @@ cancer du sein. Chaque ligne correspond à un gène, chaque colonne
 correspond à un échantillon.  
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.8]{microarray.pdf}
+%\includegraphics[scale=0.8]{microarray.pdf}
 \caption{Microarray (extrait) : chaque ligne correspond à un gène,
   chaque colonne à un échantillon. La couleur encode le niveau
   d'expression des gènes.}
@@ -122,52 +124,52 @@ and $\sum_{i=1}^{N}\xi_i$) et expliquer le rôle du paramètre $C$.
 \end{parts}
 
 
-\section{Questions sur le papier ``Quantitative image analysis of
-  cellular heterogeneity in breast tumors complements genomic profiling.''}
+\section{Questions sur le papier ``Integrative clustering of multiple genomic data types using a joint latent variable model with application to breast and lung cancer subtype analysis.''}
 
-\question[2] DNA copy number profiling. Il existe des techniques
-permettant de déterminer à partir d'un échantillon de cellules  le
-nombre de copies d'un fragment d'ADN dans le génome de la cellule
-étudiée. Cela permet entre autres d'identifier des duplications de
-gènes. 
+\question[4] Il existe de nombreux algorithmes qui permettent de faire un clustering d'échantillons sur la base de mesures faites sur ces échantillons (par exemple, le niveau d'expression d'un grand nombre de gènes, ou leur nombre de copies).
 \begin{parts}
-\part Quel est le problème de cette technique, quand on étudie un
-échantillon provenant d'une tumeur~? 
-\part Quelle est la stratégie proposée dans l'article pour corriger ce
-problème~? 
+\part Dans quel but cherche-t-on ici à faire du clustering d'échantillons de tumeurs ?
+\begin{solution}
+  Découvrir des sous-types de cancer.
+\end{solution}
+\part Quelle est la limitation de ces techniques que l'article se propose de corriger ?
+\begin{solution}
+  Impossibilité de faire ce clustering sur des sources de données multiples et hétérogènes.
+\end{solution}
+\part Quelles sont les deux difficultés rencontrées pour mettre en place cette nouvelle méthodologie ?
+\begin{solution}
+  \begin{itemize}
+  \item Modéliser à la fois la covariance entre sources de données et la structure de variance-covariance au sein de chacune des sources.
+  \item Réduire la dimension des données simultanément sur différents jeux de données corrélés.
+  \end{itemize}
+\end{solution}
+\part Comment les différentes classes (clusters) d'échantillons sont-ils modélisés dans cette approche ?
+\begin{solution}
+  Comme des variables latentes / non-observées.
+\end{solution}
 \end{parts}
 
-\question[4] Figure 5.A.   
+\question[2] Donner la dimension et l'interprétation des termes $\bm{W}$, $\bm{\Psi}$, $\bm{X}$ et $\bm{Z^*}$ dans l'Équation 9.
+\begin{solution}
+  \begin{itemize}
+  \item $\bm{W}: (p_1 + p_2 + \dots + p_m) \times (K-1)$: matrice de projection qui associe l'espace des données à celui des $(K-1)$ directions principales sur lesquelles elles sont projetées.
+  \item $\bm{\Psi}: (p_1 + p_2 + \dots + p_m) \times (p_1 + p_2 + \dots + p_m)$: matrice bloc-diagonale composée des matrices de covariance $\Psi_1, \dots, \Psi_m$ interne à chaque type de données.
+  \item $\bm{X}: (p_1 + p_2 + \dots + p_m) \times n$: données.
+  \item $\bm{Z^*}: (K-1) \times n$: version continue de la matrice $\bm{Z}$ qui assigne chaque échantillon à un cluster.
+  \end{itemize}
+\end{solution}
+
+\question[3] Figure 2.   
 \begin{parts}
-\part Que décrivent les courbes de Kaplan-Meier telles que celles
-présentées dans la Figure 5.A~? 
-\part Comment les auteurs définissent-ils ``LI''~? 
-\part Comment ont-ils séparé les tumeurs en ``LI low'' et ``LI high''
-? 
-\part Comment cette séparation se compare-t-elle à celle effectuée par
-les médecins~? 
+\part Comment les auteurs utilisent-ils la Figure 2.B pour déterminer le nombre de clusters optimal ?
+\part Quelle est la différence entre la Figure 2.A et la Figure 2.D~?
+\part Que représentent les 3 lignes sur la Figure 2.E ? 
 \end{parts}
 
-\question[3] Figure 5.B
+\question[4] Figure 3
 \begin{parts}
-\part Que représentent les couleurs sur la figure 5.B~? 
-\part Quelle propriété un classifieur capable de séparer les
-survivants des décédés doit-il avoir~?
+\part TODO
 \end{parts}
-
-\question[2] Figure 5.C. Dans la colonne de droite, on a utilisé le
-classifieur de la figure 5.B pour séparer les tumeurs en deux groupes.  
-\begin{parts}
-\part Comment cette séparation se compare-t-elle à celle effectuée
-uniquement sur la base des images ou encore celle effectuée uniquement
-sur la base de signature d'expression des gènes~? 
-\part Pourquoi les images peuvent-elles apporter une information
-complémentaire à celle apportée par la mesure de l'expression des
-gènes~?
-\end{parts}
-
-\question[1] Quels sont les descripteurs issus de l'anayse d'images que
-les auteurs utilisent pour prédire la survie des patients~? 
 
 \end{questions}
 
