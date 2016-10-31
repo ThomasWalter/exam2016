@@ -14,7 +14,7 @@
 % Bold the 'Figure #' in the caption and separate it with a period
 % Captions will be left justified
 \usepackage[labelfont=bf,labelsep=period,justification=raggedright]{caption}
-\usepackage{here}
+%\usepackage{here}
 
 \title{Examen Cours ES2: Introduction à la bioinformatique et la génomique}
 \author{Chloé-Agathe Azencott, Thomas Walter}
@@ -25,7 +25,7 @@
 
 \section{Questions sur le cours}
 
-\question[4] Notions en Biologie. 
+\question[2] Notions en Biologie. 
 \begin{parts}
 \part Citer trois fonctions de protéines. 
 \part Expliquer pourquoi un codon est constitué de trois nucléotides. 
@@ -33,93 +33,113 @@
 \part Classer les mutations selon leur effet. 
 \end{parts}
 
----- THE REST HAS NOT BEEN TOUCHED. 
-
-\question[2] La microscopie.
+\question[1] La microscopie.
 \begin{parts}
-\part Décrire une technique pour mettre en évidence des structures
-dans la cellule. 
-\part Quelle est le principe de la microscopie par feuille de lumière
-et quel est son principal avantage~? 
-\part Quel est le principe et l'objectif de la microscopie par
-illumination structurée~?  
+\part Qu'est-ce qu'on entend par la résolution d'un microscope~? 
+\part Décrire deux façons d'augmenter la résolution d'un microscope. 
 \end{parts}
 
-\question[2] Vous êtes consulté comme un expert en analyse d'image par
-un biologiste qui veut reconnaître les morphologies montrées dans la
-figure \ref{fig:morphologies}. Proposez des descripteurs qui seront
-capables de distinguer les
-morphologies d'en haut de celles d'en bas pour les colonnes (a), (b),
-(c). 
-\begin{figure}[h!]
+\question[3] Vous êtes consulté comme expert d'analyse d'images par
+des biologistes qui veulent analyser une série d'expériences. Ils
+utilisent un marqueur qui est informatif pour la compaction de la
+chromatine, et ils cherchent à trouver des molécules spécifiques pour
+rompre cette organisation. Dans les figure \ref{fig:tsa}.a et
+\ref{fig:tsa}.b, nous pouvons observer des images représentatives pour
+des cellules normales (sans traitement) et dans les figures
+\ref{fig:tsa}.c et \ref{fig:tsa}.d nous pouvons observer l'effet d'une
+molécule. Nous ajoutons que la taille et l'intensité moyenne des
+cellules n'ont pas de raison d'être différentes entre les deux
+conditions. 
+
+Proposer un descripteur spécifique qui nous permettrait de quantifier
+cet effet et expliquer votre choix. 
+
+\begin{figure}[!ht]
 \centering
-\includegraphics[scale=0.5]{morphologies_raw.png}
-\caption{Classes morphologiques à distinguer}
-\label{fig:morphologies}
+\includegraphics[scale=0.8]{TSA_phenotype.pdf}
+\caption{Phenotypic readout on heterochromatin formation: (a)-(b)
+  Negative Control, (c)-(d) Signal as observed 
+  by an active drug.}
+\label{fig:tsa}
 \end{figure}
 
-\question[2] Clustering. La figure \ref{fig:micro_array} montre le
-résultat d'un clustering d'expression des gènes de plusieurs échantillons de
-cancer du sein. Chaque ligne correspond à un gène, chaque colonne
-correspond à un échantillon.  
-\begin{figure}[h!]
+\question[4] Les descripteurs Haralick.
+Les descripteurs de Haralick sont définis à partir de la matrice de
+co-occurence normalisée $P_{\Delta_x}$. Nous rappelons que chaque élément
+$P_{\Delta_x}(i,j)$ de cette matrice est la probabilité jointe
+d'observer les valeurs de gris $i$ et $j$ pour des paires de pixels
+$(x,x+\Delta_x)$ et $(x,x-\Delta_x)$, avec $Delta_x \in
+\mathbb{Z}^2$. Plus formellement :  
+\begin{eqnarray*}
+C_{\Delta_x}(i,j) &=& |\{(x,y) \,\,| \,\, y=x \pm \Delta_x, \,\, f(x)=i,
+\,\, f(y)=j \}| \\
+P_{\Delta_x}(i,j) &=& \frac{C_{\Delta_x}(i,j)}{\sum_i\sum_j C_{\Delta_x}(i,j)}
+\end{eqnarray*} 
+
+
+Le descripteur de ``contraste'' est défini de manière suivante: 
+\begin{equation}\label{equ:haralick_contrast}
+\vartheta_{\Delta_x} = \sum_i\sum_j(i-j)^2P_{\Delta_x}(i,j)
+\end{equation}
+
+\begin{parts}
+\part Expliquer ce que le descripteur $\vartheta_{\Delta_x}$ mesure. 
+\part Ordonner les images dans la figure \ref{fig:haralick} pour (i)
+$\Delta_x=(1,0)$ et (ii) la matrice moyennée pour $\Delta_x\in
+\{(1,0), (0,1)\}$ (c'est-à-dire en direction horizontale et
+verticale).  
+
+Par exemple, si le descripteur était ``le nombre de pixels noirs'', on
+obtiendrait la solution 1. a - 2. (b,c,d,f) - 3. e. 
+\end{parts}
+
+\begin{figure}[!ht]
 \centering
-\includegraphics[scale=0.8]{microarray.pdf}
-\caption{Microarray (extrait) : chaque ligne correspond à un gène,
-  chaque colonne à un échantillon. La couleur encode le niveau
-  d'expression des gènes.}
-\label{fig:micro_array}
+\includegraphics[scale=0.8]{Haralick_question.pdf}
+\caption{Images à ordonner selon le descripteur
+  \ref{equ:haralick_contrast} }. 
+\label{fig:haralick}
 \end{figure}
 
-\begin{parts}
-\part Pour obtenir une telle représentation, on peut utiliser divers
-algorithmes. Comment peut-on décider lequel est le plus approprié~? 
-\part Tous les échantillons proviennent du cancer du sein, mais
-visiblement, ils ne partagent pas le même profil d'expression. Que
-peut-on en déduire sur le cancer du sein en tant que maladie~? Quelles
-sont les implications pour le traitement~? 
-\end{parts}
 
-\question[2] Apprentissage statistique.
-Les machines à vecteurs de support pour des jeux de données
-peuvent s'écrire comme un problème d'optimisation : 
-\begin{eqnarray*}\label{equ:svm}
-\mbox{minimize}_{w,\xi} & & \|w\|^2 + C \sum_{i=1}^{N}\xi_i\\
-\mbox{subject to} & & y_i(w^Tx_i + b) \geq 1 - \xi_i \quad i = 1, \ldots, N \\
-& & \xi_i \geq 0 \quad i = 1, \ldots, N
-\end{eqnarray*}
-où $w$ est le vecteur normal de l'hyperplan séparateur, $x_i \in
-\mathbb{R}^p$ les vecteurs des descripteurs, $y_i \in \{-1, +1\}$ les
-étiquettes. 
+\question[4] Les chaines de Markov cachées. 
+Beaucoup d'algorithmes autour des chaines de Markov cachées sont basés
+sur le calcul récursif de certaines probabilités, dont : 
+\begin{equation}\label{equ:alpha}
+\alpha_t(i) = P(O_1\ldots O_t, q_t=S_i) 
+\end{equation}
+Ici, $O_t$ est l'observation au temps $t$, $q_t$ est l'état caché au
+temps $t$ avec $q_t \in \{S_i\}_{i=1 \ldots N}$ (voire aussi figure
+\ref{fig:hmm}).
 
 \begin{parts}
-\part Qu'est-ce que cela veut dire si vous trouvez que pour un descripteur $j$, la valeur
-correspondante du vecteur normal $w_j$ a une valeur absolue proche de
-0~? 
-\part Donner une interprétation des deux termes de la fonction objective ($\|w\|^2$
-and $\sum_{i=1}^{N}\xi_i$) et expliquer le rôle du paramètre $C$. 
-\part Décrire une façon de fixer le paramètre $C$. 
+\part Montrer que $\alpha_1(i)=\pi_i b_i(O_t)$. 
+\part Montrer que $\alpha_{t+1}(j) = \left[
+  \sum_{i=1}^{N}\alpha_t(i)a_{ij} \right]b_j(O_{t+1})$. 
+\part Montrer que $P(O_1, \ldots O_{T}) = \sum_{i=1}^N\alpha_T(i)$. 
+
+(Notation: $\pi_i = P(q_1=S_i)$ est la probabilité initiale pour état $S_i$,
+$a_{ij} = P(q_{t+1}=S_j | q_t=S_i) $ la probabilité de transition,
+$b_i(O_t) = P(O_t | q_t=S_i)$ la probabilité d'émission et $T$ la
+longueur de la séquence.) 
 \end{parts}
 
-\question[2] Innovation th\'erapeutique. La table~\ref{tab:chemoinformatics} pr\'esente les performances en terme de pr\'ecision (``accuracy'', soit la proportion d'examples correctement classifi\'es) de trois algorithmes de classification appliqu\'es \`a trois jeux de donn\'ees QSAR. [Source : V. Svetnik et al. Random forest: a classification and regression tool for compound classification and QSAR modeling. {\it J Chem Info Comp Sci} (2003).]
- 
-\begin{table}
-  \centering
-  \begin{tabular}{|l|r|r|r|} \hline
-    Data & RF & DT & PLS \\ \hline
-    BBB & $0.800$ & $0.732$ & $0.678$ \\
-    Estrogen & $0.818$ & $0.753$ & $0.805$ \\
-    COX-2 & $0.783$ & $0.742$ & $0.783$ \\ \hline
-  \end{tabular}
-  \caption{Pr\'ecision (accuracy) de trois m\'ethodes : for\^ets al\'eatoires (Random Forests, RF) ; arbres de d\'ecision (Decision Trees, DT) ; r\'egression des moindres carr\'es partiels (Partial Least Squares, PSL), sur trois jeux de donn\'ees : BBB (Brain-Blood Barrier, capacit\'e \`a traverser la barri\`ere h\'emato-enc\'ephalique) ; Estrogen (capacit\'e \`a se lier \`a un r\'ecepteur \`a estrog\`ene) ; COX-2 (capacit\'e \`a inhiber la cyclooxyg\'enase-2). La pr\'ecision est d\'etermin\'ee par leave-one-out.}
-  \label{tab:chemoinformatics}
-\end{table}
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=12cm]{HMM.pdf}
+\caption{Chaine de Markov cachée.}
+\label{fig:hmm}
+\end{figure}
 
-\begin{parts}
-\part D'apr\`es ces donn\'ees, lequel des trois algorithmes est le plus appropri\'e pour conduire des \'etudes des QSAR~?
-\part Quel est l'int\'er\^et pour le d\'eveloppement th\'erapeutique de d\'evelopper des m\'ethodes capables de pr\'edire correctement la capacit\'e d'une mol\'ecule \`a traverser la barri\`ere h\'emato-enc\'ephalique~? Sa capacit\'e \`a inhiber une enzyme telle que la cycolooxyg\'enase-2~?
-\part Les proportions d'examples positifs vs. n\'egatifs dans les trois jeux de donn\'ees sont $180/145$, $131/101$ et $153/161$. Quel impact cela a-t-il sur la pertinence de l'utilisation de la pr\'ecision comme crit\`ere d'\'evaluation des algorithmes~?
-\end{parts}
+%L'estimation des
+%paramètres d'une chaine de Markov cachée à partir de séquences
+%observées, est basée sur le calcul itératif de certaines probabilités,
+%dont : 
+%\begin{equation}\label{equ:beta}
+%\beta_t(i) = P(O_{t+1}O_{t+2}\ldots O_T |q_t=S_i)
+%\end{equation}
+%Ici, $O_t$ est l'observation au temps $t$, $q_t$ est l'état caché au
+%temps $t$ et $\{S_i\}_{i=1 \ldots K}$ est l'ensemble des états cachés. 
 
 
 \section{Questions sur le papier ``Quantitative image analysis of
