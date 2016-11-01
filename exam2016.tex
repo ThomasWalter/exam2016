@@ -1,5 +1,5 @@
 \documentclass[11pt,addpoints]{exam}
-\printanswers
+%\printanswers
 
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -27,7 +27,7 @@
 
 \section{Questions sur le cours}
 
-\question[2] Notions en Biologie. 
+\question[2] {\bf Notions de Biologie.}
 \begin{parts}
 \part Citer trois fonctions de protéines. 
 \part Expliquer pourquoi un codon est constitué de trois nucléotides. 
@@ -35,9 +35,9 @@
 \part Classer les mutations selon leur effet. 
 \end{parts}
 
-\question[1] La microscopie.
+\question[1] {\bf Microscopie.}
 \begin{parts}
-\part Qu'est-ce qu'on entend par la résolution d'un microscope~? 
+\part Qu'entend-on par la résolution d'un microscope~? 
 \part Décrire deux façons d'augmenter la résolution d'un microscope. 
 \end{parts}
 
@@ -45,7 +45,7 @@
 des biologistes qui veulent analyser une série d'expériences. Ils
 utilisent un marqueur qui est informatif pour la compaction de la
 chromatine, et ils cherchent à trouver des molécules spécifiques pour
-rompre cette organisation. Dans les figure \ref{fig:tsa}.a et
+rompre cette organisation. Dans les figures \ref{fig:tsa}.a et
 \ref{fig:tsa}.b, nous pouvons observer des images représentatives pour
 des cellules normales (sans traitement) et dans les figures
 \ref{fig:tsa}.c et \ref{fig:tsa}.d nous pouvons observer l'effet d'une
@@ -65,12 +65,12 @@ cet effet et expliquer votre choix.
 \label{fig:tsa}
 \end{figure}
 
-\question[4] Les descripteurs Haralick.
+\question[4] {\bf Descripteurs de Haralick.}
 Les descripteurs de Haralick sont définis à partir de la matrice de
 co-occurence normalisée $P_{\Delta_x}$. Nous rappelons que chaque élément
 $P_{\Delta_x}(i,j)$ de cette matrice est la probabilité jointe
 d'observer les valeurs de gris $i$ et $j$ pour des paires de pixels
-$(x,x+\Delta_x)$ et $(x,x-\Delta_x)$, avec $Delta_x \in
+$(x,x+\Delta_x)$ et $(x,x-\Delta_x)$, avec $\Delta_x \in
 \mathbb{Z}^2$. Plus formellement :  
 \begin{eqnarray*}
 C_{\Delta_x}(i,j) &=& |\{(x,y) \,\,| \,\, y=x \pm \Delta_x, \,\, f(x)=i,
@@ -103,15 +103,14 @@ obtiendrait la solution 1. a - 2. (b,c,d,f) - 3. e.
 \label{fig:haralick}
 \end{figure}
 
-
-\question[4] Les chaines de Markov cachées. 
-Beaucoup d'algorithmes autour des chaines de Markov cachées sont basés
+\question[4] {\bf Chaînes de Markov cachées.} 
+Beaucoup d'algorithmes qui utilisent des chaînes de Markov cachées sont basés
 sur le calcul récursif de certaines probabilités, dont : 
 \begin{equation}\label{equ:alpha}
 \alpha_t(i) = P(O_1\ldots O_t, q_t=S_i) 
 \end{equation}
 Ici, $O_t$ est l'observation au temps $t$, $q_t$ est l'état caché au
-temps $t$ avec $q_t \in \{S_i\}_{i=1 \ldots N}$ (voire aussi figure
+temps $t$ avec $q_t \in \{S_i\}_{i=1 \ldots N}$ (voire aussi la figure
 \ref{fig:hmm}).
 
 \begin{parts}
@@ -120,10 +119,10 @@ temps $t$ avec $q_t \in \{S_i\}_{i=1 \ldots N}$ (voire aussi figure
   \sum_{i=1}^{N}\alpha_t(i)a_{ij} \right]b_j(O_{t+1})$. 
 \part Montrer que $P(O_1, \ldots O_{T}) = \sum_{i=1}^N\alpha_T(i)$. 
 
-(Notation: $\pi_i = P(q_1=S_i)$ est la probabilité initiale pour état $S_i$,
+Notations : $\pi_i = P(q_1=S_i)$ est la probabilité initiale pour l'état $S_i$,
 $a_{ij} = P(q_{t+1}=S_j | q_t=S_i) $ la probabilité de transition,
 $b_i(O_t) = P(O_t | q_t=S_i)$ la probabilité d'émission et $T$ la
-longueur de la séquence.) 
+longueur de la séquence.
 \end{parts}
 
 \begin{figure}[!ht]
@@ -142,6 +141,61 @@ longueur de la séquence.)
 %\end{equation}
 %Ici, $O_t$ est l'observation au temps $t$, $q_t$ est l'état caché au
 %temps $t$ et $\{S_i\}_{i=1 \ldots K}$ est l'ensemble des états cachés. 
+
+
+\question[2] {\bf Arbres de décision et forêts aléatoires.}
+\begin{parts}
+  \part Un arbre de décision définit une partition de l'espace des données en $m$ régions $R_1, R_2, \dots, R_m$. La fonction $f$ qui permet d'associer une étiquette à un objet $x$ peut être écrite sous la forme 
+\[ f(x) = \sum_{k=1}^m c_k I_{x \in R_k} \]
+où $I_{x \in R_k}$ est une fonction indicatrice qui vaut $1$ si $x \in R_k$ et $0$ sinon. 
+Étant donné un jeu d'entraînement $\mathcal{D} = \{x^{i}, y^{i}\}_{i=1, \dots, n}$, comment définit-on $c_k$ 
+\begin{itemize}
+\item[--] dans le cas d'un problème de classification ?
+\item[--] dans le cas d'un problème de régression ? 
+\end{itemize}
+
+Remarque : la question porte sur la définition de $c_k$ et non pas sur celle de $R_k$.
+\part Les forêts aléatoires permettent de combiner plusieurs arbres de décision. Comment transforme-t-on le jeu de données initial pour construire chacun de ces arbres ?
+\end{parts}
+
+\question[4] {\bf Criblage à haut débit.} Le criblage à haut débit ({\it high-througput screening}) permet d'identifier, parmi de nombreuses molécules, lesquelles se lient à une protéine donnée. Le criblage à haut débit virtuel ({\it virtual high-throughput screening}) en est l'équivalent sur ordinateur.
+\begin{parts}
+  \part Quel est l'intérêt du criblage à haut débit (virtuel ou non) pour la conception de médicaments ?
+  \part Quel est l'intérêt du criblage virtuel par rapport au criblage non-virtuel ?
+  \part Quelles sont les deux grandes familles de techniques que l'on peut utiliser pour faire du criblage virtuel ?
+  \part Quelles sont les limites du concept <<~clé-serrure~>> ({\it key-lock principle}) pour la conception de médicaments ?
+
+  La Figure~\ref{fig:vhts} présente les performances de plusieurs méthodes de criblage virtuel, appliquées à la détection d'inhibiteurs du virus respiratoire syncytial (RSV). Ce virus est la cause la plus fréquente d'infections respiratoires chez les enfants en bas âge (prévalence estimée : 34 millions de cas par an dans le monde chez les enfants de moins de cinq ans). Ici, les molécules sont séparées en deux classes : celles avec une faible activité biologique contre le RSV, et celles avec une forte activité biologique contre le RSV.
+  \part Laquelle des méthodes utilisées présente la meilleure performance ?
+  \part Dans le cadre du criblage virtuel, est-il préférable d'avoir une forte sensibilité ({\it sensitivity}) ou une forte spécificité ({\it specificity}) ? Sur quelle partie de la courbe ROC doit-on donc se concentrer ?
+  \part Dans le cadre de cette étude, les auteurs ont utilisé les descripteurs dits <<~Mold2~>> pour représenter les molécules. Il s'agit de 777 descripteurs calculés à partir du graphe moléculaire, qui comprennent par example le nombre d'atomes d'oxygène, le poids moléculaire, le nombre de liaisons permetant une rotation, ou la solubilité estimée de la molécule. Quelle autre stratégie pourrait-on utiliser pour représenter les molécules ?
+\end{parts}
+
+\question[2] {\bf Apprentissage statistique.} 
+\begin{parts}
+  \part L'algorithme des k plus proches voisins (kNN) prédit pour un échantillon $x$ la classe majoritaire parmi les $k$ plus proches voisins de $x$ dans le jeu d'entraînement. Sur quel(s) paramètre(s) peut-on jouer pour essayer d'améliorer la performance de cet algorithme ?
+  \part Dans le cadre de l'étude présentée à la question précédente (cf. Figure~\ref{fig:vhts}), les auteurs ont séparé leur jeu de données (216 molécules) en un jeu d'entraînement de 163 molécules et un jeu de test de 53 molécules, et rapportent les performances sur le jeu de test. Quelle autre méthode aurait-on pu utiliser pour évaluer les performances des différentes méthodes en maximisant le nombre de molécules utilisées pour l'évaluation ?
+  \part Quel risque encourt-on lorsque l'on dispose comme ici de plus de variables (777) que d'échantillons (216) ?
+\end{parts}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.5\textwidth]{hao2012_roc}
+\caption{Courbes ROC pour plusieurs méthodes de criblage virtuel, sur le jeu de prédiction. \\
+Sensitivity = True Positive Rate.
+Specificity = 1 - False Positive Rate. \\
+VS-RF : Random Forest.
+SVM : Support Vector Machine.
+GP : Gaussian Process.
+LDA : Linear Discriminant Analysis.
+kNN : k-Nearest Neighbors.\\
+Source: M. Hao, Y. Li, Y. Wang, and S. Zhang, {\it Int. J. Mol. Sci.} 2011, 12(2), 1259-1280.}
+\label{fig:vhts}
+\end{figure}
+
+
+
+
 
 \section{Questions sur le papier ``Integrative clustering of multiple genomic data types using a joint latent variable model with application to breast and lung cancer subtype analysis.''}
 
