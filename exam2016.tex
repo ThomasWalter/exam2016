@@ -1,9 +1,10 @@
 \documentclass[11pt,addpoints]{exam}
-%\printanswers
+\printanswers
 
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{bm}
+\usepackage{float}
 
 \usepackage{graphicx}
 \usepackage[usenames,dvipsnames]{color}
@@ -43,15 +44,54 @@
 \question[2] {\bf Notions de Biologie.}
 \begin{parts}
 \part Citer trois fonctions de protéines. 
+\begin{solution}
+\begin{itemize}
+\item Donner une structure à la matière vivante (p.ex. cytosquelette), 
+\item Signalisation
+\item Transport de molécules 
+\item Régulation d'expression des gènes 
+\item Protéines réceptrices 
+\item ...  
+\end{itemize}
+\end{solution}
 \part Expliquer pourquoi un codon est constitué de trois nucléotides. 
+\begin{solution}
+Parce qu'il faut passer d'un alphabète de 4 lettres à un alphabète de
+20 lettres (acides aminés). $4^2 = 16$ n'est donc pas suffisant, et il
+faut avoir un troisième nucléotide ($4^3 = 64$). 
+\end{solution}
 \part Expliquer le principe de l'interférence par ARN.
+\begin{solution}
+Les dsRNA (double-stranded RNA) sont reconnues par DICER et coupées en
+petits éléments (siRNA). Celles-ci chargent le RISC qui va maintenant
+couper les ARN cibles. L'interférence ARN permet donc à un système de
+dégrader un certain type d'ARN et donc réguler l'expression du gène
+correspondant. 
+\end{solution}
 \part Classer les mutations selon leur effet. 
+\begin{solution}
+Silencieux, non-sense, mis-sense. 
+\end{solution}
 \end{parts}
+
 
 \question[1] {\bf Microscopie.}
 \begin{parts}
 \part Qu'entend-on par la résolution d'un microscope~? 
+\begin{solution}
+La plus petite distance entre deux points à laquelle il est encore
+possible de les distinguer. 
+\end{solution}
 \part Décrire deux façons d'augmenter la résolution d'un microscope. 
+\begin{solution}
+2 parmi : 
+\begin{itemize}
+\item Réduire $\lambda$
+\item Augmenter l'indice $n$
+\item Augmenter $\alpha$. 
+\item Passer à des astuces de super-résolution (time-multiplex). 
+\end{itemize}
+\end{solution}
 \end{parts}
 
 \question[3] Vous êtes consulté comme expert d'analyse d'images par
@@ -68,6 +108,14 @@ conditions.
 
 Proposer un descripteur spécifique qui nous permettrait de quantifier
 cet effet et expliquer votre choix. 
+\begin{solution}
+Il suffit de détecter des ``spots'' avec des méthodes classiques
+(Laplacian of Gaussian, ouvertures morphologiques). Ensuite on peut
+calculer les intensités et leurs taille. Alternativement, on peut
+utiliser des descripteurs de texture, par exemple la
+granulometrie. C'est semblable, mais ça permet de ne pas appliquer un
+seuil. 
+\end{solution}
 
 \begin{figure}[!ht]
 \centering
@@ -99,6 +147,11 @@ Le descripteur de ``contraste'' est défini de manière suivante:
 
 \begin{parts}
 \part Expliquer ce que le descripteur $\vartheta_{\Delta_x}$ mesure. 
+\begin{solution}
+L'espérance de la différence entre valeurs de gris au carré pour des
+pixels espacés par $\Delta_x$. 
+\end{solution}
+
 \part Ordonner les images dans la figure \ref{fig:haralick} pour (i)
 $\Delta_x=(1,0)$ et (ii) la matrice moyennée pour $\Delta_x\in
 \{(1,0), (0,1)\}$ (c'est-à-dire en direction horizontale et
@@ -106,6 +159,13 @@ verticale).
 
 Par exemple, si le descripteur était ``le nombre de pixels noirs'', on
 obtiendrait la solution 1. a - 2. (b,c,d,f) - 3. e. 
+\begin{solution}
+\begin{itemize}
+\item (i) 1.(e,c) - 2.a - 3.f - 4.(b,d)
+\item (ii) 1.e - 2.a - 3.f - 4.(c,d) - 5.b 
+\end{itemize}
+\end{solution}
+
 \end{parts}
 
 \begin{figure}[!ht]
@@ -127,10 +187,34 @@ temps $t$ avec $q_t \in \{S_i\}_{i=1 \ldots N}$ (voire aussi la figure
 \ref{fig:hmm}).
 
 \begin{parts}
-\part Montrer que $\alpha_1(i)=\pi_i b_i(O_t)$. 
+\part Montrer que $\alpha_1(i)=\pi_i b_i(O_1)$. 
+\begin{solution}
+\begin{eqnarray*}
+\alpha_1 &=& P(O_1,q_1=S_i) \\
+&=& P(q_1=S_i)P(O_1 \,|\,q_1=S_i) \\
+&=& \pi_ib_i(O_1)
+\end{eqnarray*}
+\end{solution}
 \part Montrer que $\alpha_{t+1}(j) = \left[
   \sum_{i=1}^{N}\alpha_t(i)a_{ij} \right]b_j(O_{t+1})$. 
+\begin{solution}
+\begin{eqnarray*}
+\alpha_{t+1}(j) &=& P(O_1,\ldots, O_t, O_{t+1}, q_{t+1}=S_j) \\
+&=& \sum_{i=1}^N P(O_1,\ldots, O_t, O_{t+1}, q_{t+1}=S_j, q_t=S_i) \\
+&=& \sum_{i=1}^N P(O_1,\ldots, O_t, q_t=S_i) P(q_{t+1}=S_j \, | \,
+q_{t}=S_i) P(O_{t+1} \, | \, q_{t+1}=S_j ) \\
+&=& \sum_{i=1}^N \alpha_t(i) a_{ij} b_j(O_{t+1}) \\
+&=& \left[\sum_{i=1}^N \alpha_t(i) a_{ij} \right] b_j(O_{t+1}) \\
+\end{eqnarray*}
+\end{solution}
+
 \part Montrer que $P(O_1, \ldots O_{T}) = \sum_{i=1}^N\alpha_T(i)$. 
+\begin{solution}
+\begin{eqnarray*}
+P(O_1, \ldots O_{T}) &=& \sum_{i=1}^N P(O_1, \ldots O_{T}, q_T=S_i) \\
+&=& \sum_{i=1}^N\alpha_T(i)
+\end{eqnarray*}
+\end{solution}
 
 Notations : $\pi_i = P(q_1=S_i)$ est la probabilité initiale pour l'état $S_i$,
 $a_{ij} = P(q_{t+1}=S_j | q_t=S_i) $ la probabilité de transition,
@@ -191,7 +275,7 @@ Remarque : la question porte sur la définition de $c_k$ et non pas sur celle de
   \part Quel risque encourt-on lorsque l'on dispose comme ici de plus de variables (777) que d'échantillons (216) ?
 \end{parts}
 
-\begin{figure}[!ht]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.5\textwidth]{hao2012_roc}
 \caption{Courbes ROC pour plusieurs méthodes de criblage virtuel, sur le jeu de prédiction. \\
@@ -248,13 +332,56 @@ Source: M. Hao, Y. Li, Y. Wang, and S. Zhang, {\it Int. J. Mol. Sci.} 2011, 12(2
 \question[3] Figure 2.   
 \begin{parts}
 \part Comment les auteurs utilisent-ils la Figure 2.B pour déterminer le nombre de clusters optimal ?
+\begin{solution}
+On évalue à quel point la structure de la matrice est
+bloc-diagonale. Le paramètre $K$ qui donne la structure qui ressemble
+le plus à une matrice complètement bloc-diagonale est choisi. Ceci
+revient à déterminer la ``stabilité''. 
+\end{solution}
 \part Quelle est la différence entre la Figure 2.A et la Figure 2.D~?
+\begin{solution}
+Figure 2.A : clustering séparé, Figure 2.D : clustering intégré. 
+\end{solution}
 \part Que représentent les 3 lignes sur la Figure 2.E ? 
+\begin{solution}
+Kaplan-Meier: le pourcentage de patients ayant survécu jusqu'au temps
+indiqué en abscisse. 
+\end{solution}
+
 \end{parts}
 
 \question[4] Figure 3
 \begin{parts}
-\part TODO
+\part Quels mesures sont représentées dans les heatmaps de gauche et
+de droite dans les Figures 3.A, B, D, E~?
+\begin{solution}
+À gauche le nombre de copies d'ADN (moyennes sur des segments) et à
+droite des valeurs d'expression. 
+\end{solution}
+\part Comparer qualitativement le résultat de clustering présenté dans
+la Figure 3.A et 3.B. 
+\begin{solution}
+On voit que la structure dans les données est beaucoup mieux capturée
+par la méthode intégrative. Notamment le premier cluster. 
+\end{solution}
+\part Un dendrogramme (tel qu'ils sont montrés dans les Figure 3.B et
+3.E) visualise les distances entre clusters au moment de leur fusion. 
+Qu'est-ce qu'on peut dire sur la qualité des dendrogrammes montrés
+dans les Figure 3.B et 3.E~?
+\begin{solution}
+Les dendrogrammes montrent la mauvaise qualité de la méthode
+hiérarchique utilisée (en dehors du côté intégratif) : chaque sample est assez
+différent des autres, mais les clusters de samples sont assez proches
+des autres clusters. C'est probablement dû à un mauvais choix de la
+méthode d'agglomération. 
+\end{solution}
+\part Selon les Figure 3.C et 3.F, quelles valeurs pour $\lambda$
+vous semblent appropriées~? Que contrôle le paramètre $\lambda$~?
+\begin{solution}
+$\lambda>0$ donne de résultats de meilleure stabilité.  
+$\lambda$ pondère le terme de régularisation $L_1$ et contrôle donc la
+``sparsity'' de la solution. 
+\end{solution}
 \end{parts}
 
 \end{questions}
