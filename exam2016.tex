@@ -1,5 +1,5 @@
 \documentclass[11pt,addpoints]{exam}
-\printanswers
+%\printanswers
 
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -41,7 +41,7 @@
 
 \section{Questions sur le cours}
 
-\question[2] {\bf Notions de Biologie.}
+\question[3] {\bf Notions de Biologie.}
 \begin{parts}
 \part Citer trois fonctions de protéines. 
 \begin{solution}
@@ -60,14 +60,14 @@ Parce qu'il faut passer d'un alphabète de 4 lettres à un alphabète de
 20 lettres (acides aminés). $4^2 = 16$ n'est donc pas suffisant, et il
 faut avoir un troisième nucléotide ($4^3 = 64$). 
 \end{solution}
-\part Expliquer le principe de l'interférence par ARN.
-\begin{solution}
-Les dsRNA (double-stranded RNA) sont reconnues par DICER et coupées en
-petits éléments (siRNA). Celles-ci chargent le RISC qui va maintenant
-couper les ARN cibles. L'interférence ARN permet donc à un système de
-dégrader un certain type d'ARN et donc réguler l'expression du gène
-correspondant. 
-\end{solution}
+%\part Expliquer le principe de l'interférence par ARN.
+%\begin{solution}
+%Les dsRNA (double-stranded RNA) sont reconnues par DICER et coupées en
+%petits éléments (siRNA). Celles-ci chargent le RISC qui va maintenant
+%couper les ARN cibles. L'interférence ARN permet donc à un système de
+%dégrader un certain type d'ARN et donc réguler l'expression du gène
+%correspondant. 
+%\end{solution}
 \part Classer les mutations selon leur effet. 
 \begin{solution}
 Silencieux, non-sense, mis-sense. 
@@ -75,24 +75,33 @@ Silencieux, non-sense, mis-sense.
 \end{parts}
 
 
-\question[1] {\bf Microscopie.}
-\begin{parts}
-\part Qu'entend-on par la résolution d'un microscope~? 
-\begin{solution}
-La plus petite distance entre deux points à laquelle il est encore
-possible de les distinguer. 
-\end{solution}
-\part Décrire deux façons d'augmenter la résolution d'un microscope. 
-\begin{solution}
-2 parmi : 
-\begin{itemize}
-\item Réduire $\lambda$
-\item Augmenter l'indice $n$
-\item Augmenter $\alpha$. 
-\item Passer à des astuces de super-résolution (time-multiplex). 
-\end{itemize}
-\end{solution}
-\end{parts}
+%\question[1] {\bf Microscopie.}
+%\begin{parts}
+%\part Qu'entend-on par la résolution d'un microscope~? 
+%\begin{solution}
+%La plus petite distance entre deux points à laquelle il est encore
+%possible de les distinguer. 
+%\end{solution}
+%\part Décrire deux façons d'augmenter la résolution d'un microscope. 
+%\begin{solution}
+%2 parmi : 
+%\begin{itemize}
+%\item Réduire $\lambda$
+%\item Augmenter l'indice $n$
+%\item Augmenter $\alpha$. 
+%\item Passer à des astuces de super-résolution (time-multiplex). 
+%\end{itemize}
+%\end{solution}
+%\end{parts}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[scale=0.8]{TSA_phenotype.pdf}
+\caption{Phenotypic readout on heterochromatin formation: (a)-(b)
+  Negative Control, (c)-(d) Signal as observed 
+  by an active drug.}
+\label{fig:tsa}
+\end{figure}
 
 \question[3] Vous êtes consulté comme expert d'analyse d'images par
 des biologistes qui veulent analyser une série d'expériences. Ils
@@ -117,19 +126,10 @@ granulometrie. C'est semblable, mais ça permet de ne pas appliquer un
 seuil. 
 \end{solution}
 
-\begin{figure}[!ht]
-\centering
-\includegraphics[scale=0.8]{TSA_phenotype.pdf}
-\caption{Phenotypic readout on heterochromatin formation: (a)-(b)
-  Negative Control, (c)-(d) Signal as observed 
-  by an active drug.}
-\label{fig:tsa}
-\end{figure}
-
-\question[4] {\bf Descripteurs de Haralick.}
+\question[3] {\bf Descripteurs de Haralick.}
 Les descripteurs de Haralick sont définis à partir de la matrice de
 co-occurence normalisée $P_{\Delta_x}$. Nous rappelons que chaque élément
-$P_{\Delta_x}(i,j)$ de cette matrice est la probabilité jointe
+$P_{\Delta_x}(i,j)$ de cette matrice est une estimation de la probabilité jointe
 d'observer les valeurs de gris $i$ et $j$ pour des paires de pixels
 $(x,x+\Delta_x)$ et $(x,x-\Delta_x)$, avec $\Delta_x \in
 \mathbb{Z}^2$. Plus formellement :  
@@ -144,30 +144,41 @@ Le descripteur de ``contraste'' est défini de manière suivante:
 \begin{equation}\label{equ:haralick_contrast}
 \vartheta_{\Delta_x} = \sum_i\sum_j(i-j)^2P_{\Delta_x}(i,j)
 \end{equation}
+Il correspond donc à l'espérance de la différence au carré entre
+valeurs de gris pour des pairs de pixels $(x, x \pm \Delta_x)$. 
 
 \begin{parts}
-\part Expliquer ce que le descripteur $\vartheta_{\Delta_x}$ mesure. 
-\begin{solution}
-L'espérance de la différence entre valeurs de gris au carré pour des
-pixels espacés par $\Delta_x$. 
-\end{solution}
-
-\part Ordonner les images dans la figure \ref{fig:haralick} pour (i)
-$\Delta_x=(1,0)$ et (ii) la matrice moyennée pour $\Delta_x\in
-\{(1,0), (0,1)\}$ (c'est-à-dire en direction horizontale et
-verticale).  
-
-Par exemple, si le descripteur était ``le nombre de pixels noirs'', on
-obtiendrait la solution 1. a - 2. (b,c,d,f) - 3. e. 
-\begin{solution}
-\begin{itemize}
-\item (i) 1.(e,c) - 2.a - 3.f - 4.(b,d)
-\item (ii) 1.e - 2.a - 3.f - 4.(c,d) - 5.b 
-\end{itemize}
-\end{solution}
-
+\part Ordonner les images selon $\vartheta_{\Delta_x}  $ dans la
+figure \ref{fig:haralick} pour $\Delta_x=(1,0)$. 
+\part Ordonner les images dans la figure \ref{fig:haralick} pour la
+matrice $P_{\Delta_x}$ moyennée sur $\Delta_x\in \{(1,0), (0,1)\}$ (c'est-à-dire en
+direction horizontale et verticale).   
 \end{parts}
 
+
+%\begin{parts}
+%\part Expliquer ce que le descripteur $\vartheta_{\Delta_x}$ mesure. 
+%\begin{solution}
+%L'espérance de la différence entre valeurs de gris au carré pour des
+%pixels espacés par $\Delta_x$. 
+%\end{solution}
+%
+%\part Ordonner les images dans la figure \ref{fig:haralick} pour (i)
+%$\Delta_x=(1,0)$ et (ii) la matrice moyennée pour $\Delta_x\in
+%\{(1,0), (0,1)\}$ (c'est-à-dire en direction horizontale et
+%verticale).  
+%
+%Par exemple, si le descripteur était ``le nombre de pixels noirs'', on
+%obtiendrait la solution 1. a - 2. (b,c,d,f) - 3. e. 
+%\begin{solution}
+%\begin{itemize}
+%\item (i) 1.(e,c) - 2.a - 3.f - 4.(b,d)
+%\item (ii) 1.e - 2.a - 3.f - 4.(c,d) - 5.b 
+%\end{itemize}
+%\end{solution}
+%
+%\end{parts}
+%
 \begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.8]{Haralick_question.pdf}
@@ -176,8 +187,8 @@ obtiendrait la solution 1. a - 2. (b,c,d,f) - 3. e.
 \label{fig:haralick}
 \end{figure}
 
-\question[4] {\bf Chaînes de Markov cachées.} 
-Beaucoup d'algorithmes qui utilisent des chaînes de Markov cachées sont basés
+\question[6] {\bf Chaînes de Markov cachées.} 
+Beaucoup d'algorithmes liés aux chaînes de Markov cachées sont basés
 sur le calcul récursif de certaines probabilités, dont : 
 \begin{equation}\label{equ:alpha}
 \alpha_t(i) = P(O_1\ldots O_t, q_t=S_i) 
@@ -220,11 +231,15 @@ Notations : $\pi_i = P(q_1=S_i)$ est la probabilité initiale pour l'état $S_i$
 $a_{ij} = P(q_{t+1}=S_j | q_t=S_i) $ la probabilité de transition,
 $b_i(O_t) = P(O_t | q_t=S_i)$ la probabilité d'émission et $T$ la
 longueur de la séquence.
+
+Remarque : il convient de rappeler les deux règles fondamentales $P(X)
+= \sum_Y P(X,Y)$ et $P(X,Y) = P(X|Y) P(Y)$. 
+
 \end{parts}
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=12cm]{HMM.pdf}
+\includegraphics[width=12cm]{HMM_brut.pdf}
 \caption{Chaine de Markov cachée.}
 \label{fig:hmm}
 \end{figure}
@@ -240,7 +255,7 @@ longueur de la séquence.
 %temps $t$ et $\{S_i\}_{i=1 \ldots K}$ est l'ensemble des états cachés. 
 
 
-\question[2] {\bf Arbres de décision et forêts aléatoires.}
+\question[4] {\bf Arbres de décision et forêts aléatoires.}
 \begin{parts}
   \part Un arbre de décision définit une partition de l'espace des données en $m$ régions $R_1, R_2, \dots, R_m$. La fonction $f$ qui permet d'associer une étiquette à un objet $x$ peut être écrite sous la forme 
 \[ f(x) = \sum_{k=1}^m c_k I_{x \in R_k} \]
@@ -255,7 +270,7 @@ Remarque : la question porte sur la définition de $c_k$ et non pas sur celle de
 \part Les forêts aléatoires permettent de combiner plusieurs arbres de décision. Comment transforme-t-on le jeu de données initial pour construire chacun de ces arbres ?
 \end{parts}
 
-\question[4] {\bf Criblage à haut débit.} Le criblage à haut débit ({\it high-througput screening}) permet d'identifier, parmi de nombreuses molécules, lesquelles se lient à une protéine donnée. Le criblage à haut débit virtuel ({\it virtual high-throughput screening}) en est l'équivalent sur ordinateur.
+\question[8] {\bf Criblage à haut débit.} Le criblage à haut débit ({\it high-througput screening}) permet d'identifier, parmi de nombreuses molécules, lesquelles se lient à une protéine donnée. Le criblage à haut débit virtuel ({\it virtual high-throughput screening}) en est l'équivalent sur ordinateur.
 \begin{parts}
   \part Quel est l'intérêt du criblage à haut débit (virtuel ou non) pour la conception de médicaments ?
   \part Quel est l'intérêt du criblage virtuel par rapport au criblage non-virtuel ?
@@ -268,7 +283,7 @@ Remarque : la question porte sur la définition de $c_k$ et non pas sur celle de
   \part Dans le cadre de cette étude, les auteurs ont utilisé les descripteurs dits <<~Mold2~>> pour représenter les molécules. Il s'agit de 777 descripteurs calculés à partir du graphe moléculaire, qui comprennent par example le nombre d'atomes d'oxygène, le poids moléculaire, le nombre de liaisons permetant une rotation, ou la solubilité estimée de la molécule. Quelle autre stratégie pourrait-on utiliser pour représenter les molécules ?
 \end{parts}
 
-\question[2] {\bf Apprentissage statistique.} 
+\question[4] {\bf Apprentissage statistique.} 
 \begin{parts}
   \part L'algorithme des k plus proches voisins (kNN) prédit pour un échantillon $x$ la classe majoritaire parmi les $k$ plus proches voisins de $x$ dans le jeu d'entraînement. Sur quel(s) paramètre(s) peut-on jouer pour essayer d'améliorer la performance de cet algorithme ?
   \part Dans le cadre de l'étude présentée à la question précédente (cf. Figure~\ref{fig:vhts}), les auteurs ont séparé leur jeu de données (216 molécules) en un jeu d'entraînement de 163 molécules et un jeu de test de 53 molécules, et rapportent les performances sur le jeu de test. Quelle autre méthode aurait-on pu utiliser pour évaluer les performances des différentes méthodes en maximisant le nombre de molécules utilisées pour l'évaluation ?
@@ -296,7 +311,7 @@ Source: M. Hao, Y. Li, Y. Wang, and S. Zhang, {\it Int. J. Mol. Sci.} 2011, 12(2
 
 \section{Questions sur l'article ``Integrative clustering of multiple genomic data types using a joint latent variable model with application to breast and lung cancer subtype analysis.''}
 
-\question[4] Il existe de nombreux algorithmes qui permettent de faire un clustering d'échantillons sur la base de mesures faites sur ces échantillons (par exemple, le niveau d'expression d'un grand nombre de gènes, ou leur nombre de copies).
+\question[8] Il existe de nombreux algorithmes qui permettent de faire un clustering d'échantillons sur la base de mesures faites sur ces échantillons (par exemple, le niveau d'expression d'un grand nombre de gènes, ou leur nombre de copies).
 \begin{parts}
 \part Dans quel but cherche-t-on ici à faire du clustering d'échantillons de tumeurs ?
 \begin{solution}
@@ -319,7 +334,7 @@ Source: M. Hao, Y. Li, Y. Wang, and S. Zhang, {\it Int. J. Mol. Sci.} 2011, 12(2
 \end{solution}
 \end{parts}
 
-\question[2] Donner la dimension et l'interprétation des termes $\bm{W}$, $\bm{\Psi}$, $\bm{X}$ et $\bm{Z^*}$ dans l'Équation 9.
+\question[4] Donner la dimension et l'interprétation des termes $\bm{W}$, $\bm{\Psi}$, $\bm{X}$ et $\bm{Z^*}$ dans l'Équation 9.
 \begin{solution}
   \begin{itemize}
   \item $\bm{W}: (p_1 + p_2 + \dots + p_m) \times (K-1)$: matrice de projection qui associe l'espace des données à celui des $(K-1)$ directions principales sur lesquelles elles sont projetées.
@@ -329,7 +344,7 @@ Source: M. Hao, Y. Li, Y. Wang, and S. Zhang, {\it Int. J. Mol. Sci.} 2011, 12(2
   \end{itemize}
 \end{solution}
 
-\question[3] Figure 2.   
+\question[6] Figure 2.   
 \begin{parts}
 \part Comment les auteurs utilisent-ils la Figure 2.B pour déterminer le nombre de clusters optimal ?
 \begin{solution}
@@ -350,10 +365,10 @@ indiqué en abscisse.
 
 \end{parts}
 
-\question[4] Figure 3
+\question[8] Figure 3
 \begin{parts}
-\part Quels mesures sont représentées dans les heatmaps de gauche et
-de droite dans les Figures 3.A, B, D, E~?
+\part Expliquer la variable visualisée dans les graphiques de gauche
+dans la figure 3.A (et B,D,E). 
 \begin{solution}
 À gauche le nombre de copies d'ADN (moyennes sur des segments) et à
 droite des valeurs d'expression. 
